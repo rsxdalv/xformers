@@ -1,4 +1,4 @@
-name: Test Mac wheel build
+name: Mac wheel build
 
 on:
   workflow_dispatch:
