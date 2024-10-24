@@ -36,7 +36,8 @@ jobs:
           python -m pip install wheel ninja
           brew install llvm libomp
           MACOSX_DEPLOYMENT_TARGET=10.9 CC=/opt/homebrew/opt/llvm/bin/clang CXX=/opt/homebrew/opt/llvm/bin/clang++ python -m pip wheel . -w wheels
-
+      - name: Install delocate
+        run: pip install delocate
       - name: Delocate wheel
         run: |
           delocate-wheel -v wheels
