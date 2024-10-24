@@ -35,5 +35,22 @@ jobs:
           python -m pip install --upgrade pip==23.3.2
           python -m pip install wheel ninja
           brew install llvm libomp
-          MACOSX_DEPLOYMENT_TARGET=10.9 CC=/opt/homebrew/opt/llvm/bin/clang CXX=/opt/homebrew/opt/llvm/bin/clang++ python -m pip wheel . -w wheels
+          
+      # MACOSX_DEPLOYMENT_TARGET=10.9 CC=/opt/homebrew/opt/llvm/bin/clang CXX=/opt/homebrew/opt/llvm/bin/clang++ python -m pip wheel . -w wheels
 
+      - name: Install cibuildwheel
+        run: |
+          python3 -m pip install cibuildwheel
+  
+      - name: Build wheels for CPython
+        run: |
+          python3 -m cibuildwheel --output-dir dist
+        env:
+          CIBW_ENVIRONMENT_MACOS: MACOSX_DEPLOYMENT_TARGET=10.9 CC=/opt/homebrew/opt/llvm/bin/clang CXX=/opt/homebrew/opt/llvm/bin/clang++
+          # CIBW_BUILD: "cp38-*64"
+          # CIBW_MANYLINUX_X86_64_IMAGE: manylinux1
+          # CIBW_BEFORE_BUILD: git submodule update --init --recursive && pip install .
+          # # Install system library
+          # CIBW_BEFORE_BUILD_LINUX: (yum install -y libffi-devel || apt-get install -y libffi-devel || apk add --update --no-cache libffi-devel || true) && (yum install -y libc6 || apt-get install -y libc6 || apk add --update --no-cache libc6 || true)
+          # CIBW_ENVIRONMENT: "PIP_ONLY_BINARY=numpy"
+          # CIBW_SKIP: "*musllinux*"
