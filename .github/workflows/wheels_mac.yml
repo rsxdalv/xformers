@@ -38,6 +38,8 @@ jobs:
           MACOSX_DEPLOYMENT_TARGET=10.9 ARCHFLAGS="-arch arm64" CC=/opt/homebrew/opt/llvm/bin/clang CXX=/opt/homebrew/opt/llvm/bin/clang++ python -m pip wheel . -w wheels
       - name: Install delocate
         run: pip install delocate
+      - name: Check the wheel
+        run: delocate-listdeps wheels/*.whl
       - name: Delocate wheel
         run: |
           delocate-wheel --require-archs=arm64 --ignore-missing-dependencies -v wheels/*.whl
