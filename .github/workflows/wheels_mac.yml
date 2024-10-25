@@ -40,7 +40,7 @@ jobs:
         run: pip install delocate
       - name: Delocate wheel
         run: |
-          delocate-wheel --require-archs=arm64 -v wheels/*.whl
+          delocate-wheel --require-archs=arm64 --ignore-missing-dependencies -v wheels/*.whl
 
       # - name: Install cibuildwheel
       #   run: |
