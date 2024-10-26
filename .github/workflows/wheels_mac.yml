@@ -38,7 +38,7 @@ jobs:
           MACOSX_DEPLOYMENT_TARGET=10.9 ARCHFLAGS="-arch arm64" CC=/opt/homebrew/opt/llvm/bin/clang CXX=/opt/homebrew/opt/llvm/bin/clang++ python setup.py bdist_wheel -d dist/ -k $PLAT_ARG
         # MACOSX_DEPLOYMENT_TARGET=10.9 ARCHFLAGS="-arch arm64" CC=/opt/homebrew/opt/llvm/bin/clang CXX=/opt/homebrew/opt/llvm/bin/clang++ python -m pip wheel . -w wheels
       - name: Check the wheel
-        run: delocate-listdeps wheels/*.whl
+        run: delocate-listdeps dist/*.whl
       - run: du -h dist/*
       - uses: actions/upload-artifact@v4
         with:
