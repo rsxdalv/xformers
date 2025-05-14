@@ -30,7 +30,7 @@ env:
 jobs:
   wheels_upload_pip:
     name: wheels_upload_pip
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     timeout-minutes: 360
     defaults:
@@ -86,7 +86,7 @@ jobs:
         env:
           VERSION_SOURCE: ${{ github.ref_type == 'tag' && 'tag' || 'dev'  }}
         run: |
-          version=`$PY packaging/compute_wheel_version.py --source $VERSION_SOURCE`
+          version=`$PY .github/compute_wheel_version.py --source $VERSION_SOURCE`
           echo $version > version.txt
           cat version.txt
 
